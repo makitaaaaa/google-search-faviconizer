@@ -1,0 +1,10 @@
+.ext-favicon {
+  vertical-align: middle;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  display: inline-block;
+}
+
+#ires a cite:first-child {
+  padding-left: 19px;
+}
