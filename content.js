@@ -129,5 +129,8 @@ const intersectionChanged = (entries, observer) => {
   }
 }
 
-initialize();
-scanTargetLinks();
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  initialize();
+  scanTargetLinks();
+});
