@@ -91,7 +91,11 @@ const scanTargetLinks = (records, observer) => {
         imgElm.height = 16;
         imgElm.src = NULL_IMAGE_DATA;
 
-        citeElm.parentElement.insertBefore(imgElm, citeElm);
+        let containerElm = document.createElement("div");
+        containerElm.classList.add("ext-favicon-container");
+        containerElm.appendChild(imgElm);
+
+        citeElm.insertBefore(containerElm, citeElm.firstChild);
 
         //rotationIndex = (rotationIndex + 1) % ROTATION_COUNT;
         imageIntersectObserver.observe(imgElm);

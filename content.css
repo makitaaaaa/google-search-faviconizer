@@ -1,7 +1,9 @@
 .ext-favicon {
-  vertical-align: middle;
-  padding-right: 3px;
-  padding-bottom: 3px;
+  position: absolute;
+  transform: translate(calc(-100% - 4px), calc(-100% + 0.2em));
+}
+
+.ext-favicon-container {
   display: inline-block;
 }
 
