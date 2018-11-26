@@ -36,7 +36,7 @@ const initialize = async () => {
 
     let itersectObsOption = {
       threshold: [0.0, 1.0],
-      rootMargin: "25% 0% 25% 0%"
+      rootMargin: "50% 0% 50% 0%"
     };
     imageIntersectObserver = new IntersectionObserver((entries, observer) => {
       intersectionChanged(entries, observer);
