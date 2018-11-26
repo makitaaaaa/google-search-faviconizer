@@ -1,26 +1,31 @@
 "use strict";
 
+/* global browser, logging, StorageKeys, SiteKeys, getStorageItem */
+
+/** @typedef {{iconSite:string}} CommonSettings */
+
+/** @type {CommonSettings} */
+let settings = null;
+
 /** @type {MutationObserver} */
 let pageObserver = null;
 
 /** @type {IntersectionObserver} */
 let imageIntersectObserver = null;
 
-/** @type {number} */
-let rotationIndex = 0;
-
-/** @type {number} */
-//const ROTATION_COUNT = 3;
-
 /** @type {string} */
 const NULL_IMAGE_DATA = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
-const initialize = () => {
+const initialize = async () => {
   try {
     let rootElm = document.querySelector("#res");
     if (rootElm == null) {
       return;
     }
+    // load settings
+    settings = await getStorageItem(StorageKeys.Settings);
+
+    // start observation
     pageObserver = new MutationObserver(((records, observer) => {
       scanTargetLinks(records, observer);
     }));
@@ -37,8 +42,7 @@ const initialize = () => {
       intersectionChanged(entries, observer);
     }, itersectObsOption);
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e);
+    logging(e);
   }
 }
 
@@ -52,8 +56,16 @@ const scanTargetLinks = (records, observer) => {
   if (pageObserver == null) {
     return;
   }
-  window.requestIdleCallback(() => {
+  window.requestIdleCallback(async () => {
     try {
+      let iconSite = SiteKeys.Google;
+      if (settings == null) {
+        settings = await getStorageItem(StorageKeys.Settings);
+      }
+      if (settings != null) {
+        iconSite = settings.iconSite;
+      }
+
       let citeElms = document.querySelectorAll("#ires a cite:not([data-ext-favicon])");
       for (let citeElm of citeElms) {
         let linkElm = null;
@@ -75,15 +87,15 @@ const scanTargetLinks = (records, observer) => {
 
         let imgElm = document.createElement("img");
         imgElm.classList.add("ext-favicon");
-        switch (rotationIndex) {
-          case 0:
+        switch (iconSite) {
+          case SiteKeys.Google:
             faviconUrl = `//www.google.com/s2/favicons?domain=${url.hostname}`;
             break;
-          case 1:
-            faviconUrl = `//cdn-ak.favicon.st-hatena.com/?url=${url.protocol}//${url.hostname}/`;
-            break;
-          case 2:
+          case SiteKeys.DuckDuckGo:
             faviconUrl = `//proxy.duckduckgo.com/ip3/${url.hostname}.ico`;
+            break;
+          case SiteKeys.Hatena:
+            faviconUrl = `//cdn-ak.favicon.st-hatena.com/?url=${url.protocol}//${url.hostname}/`;
             break;
         }
         imgElm.setAttribute("data-ext-favicon-src", faviconUrl);
@@ -97,12 +109,10 @@ const scanTargetLinks = (records, observer) => {
 
         citeElm.insertBefore(containerElm, citeElm.firstChild);
 
-        //rotationIndex = (rotationIndex + 1) % ROTATION_COUNT;
         imageIntersectObserver.observe(imgElm);
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
+      logging(e);
     }
   });
 }
@@ -128,13 +138,12 @@ const intersectionChanged = (entries, observer) => {
       imgElm.removeAttribute("data-ext-favicon-src");
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e);
+    logging(e);
   }
 }
 
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  initialize();
+document.addEventListener("DOMContentLoaded", async (event) => {
+  await initialize();
   scanTargetLinks();
 });

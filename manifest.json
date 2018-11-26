@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Google search faviconizer",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Add site icon(favicon) in Google search results.",
   "author": "makitaaaaa",
   "applications": {
@@ -13,6 +13,12 @@
     "48": "icons/icon-48.png",
     "96": "icons/icon-96.png"
   },
+  "background": {
+    "scripts": [
+      "common.js",
+      "background.js"
+    ]
+  },
   "content_scripts": [{
     "matches": [
       "https://*/*"
@@ -21,9 +27,18 @@
       "https://www.google.*/search*"
     ],
     "css": ["content.css"],
-    "js": ["content.js"],
+    "js": [
+      "common.js",
+      "content.js"
+    ],
     "run_at": "document_start"
   }],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false,
+    "browser_style": false
+  },
   "permissions": [
+    "storage"
   ]
 }

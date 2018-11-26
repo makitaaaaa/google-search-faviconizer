@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta>
+  <meta charset="UTF-8">
+  <title>Google search faviconizer options</title>
+  <link href="options.css" rel="stylesheet">
+</head>
+
+<body>
+  <form name="main-form" id="main-form" style="visibility: hidden">
+    <div id="common-settings-fields">
+      <fieldset>
+        <legend>Icon request sites</legend>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <input type="radio" id="icon-site-google" name="icon-site" data-storage-key="iconSite">
+                <label for="icon-site-google" class="radio">Google (www.google.com/s2/favicons?domain=${hostname})</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="radio" id="icon-site-duckduckgo" name="icon-site" data-storage-key="iconSite">
+                <label for="icon-site-duckduckgo" class="radio">DuckDuckGo (proxy.duckduckgo.com/ip3/${hostname}.ico)</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="radio" id="icon-site-hatena" name="icon-site"  data-storage-key="iconSite">
+                <label for="icon-site-hatena" class="radio">Hatena (cdn-ak.favicon.st-hatena.com/?url=${protocol}//${hostname}/)</label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
+    </div>
+  </form>
+  <script src="common.js"></script>
+  <script src="options.js"></script>
+</body>
+
+</html>
