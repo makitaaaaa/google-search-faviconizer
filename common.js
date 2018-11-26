@@ -8,7 +8,6 @@ const StorageKeys = {
 
 const SiteKeys = {
   Google: "google",
-  DuckDuckGo: "duckduckgo",
   Hatena: "hatena"
 }
 

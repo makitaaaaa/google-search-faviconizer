@@ -91,9 +91,6 @@ const scanTargetLinks = (records, observer) => {
           case SiteKeys.Google:
             faviconUrl = `//www.google.com/s2/favicons?domain=${url.hostname}`;
             break;
-          case SiteKeys.DuckDuckGo:
-            faviconUrl = `//proxy.duckduckgo.com/ip3/${url.hostname}.ico`;
-            break;
           case SiteKeys.Hatena:
             faviconUrl = `//cdn-ak.favicon.st-hatena.com/?url=${url.protocol}//${url.hostname}/`;
             break;

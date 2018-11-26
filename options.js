@@ -8,7 +8,6 @@
   let settings = null;
 
   const siteGoogleElement = document.getElementById("icon-site-google");
-  const siteDuckDuckGoElement = document.getElementById("icon-site-duckduckgo");
   const siteHatenaElement = document.getElementById("icon-site-hatena");
 
   /** 
@@ -17,7 +16,6 @@
   const initialize = async () => {
     try {
       siteGoogleElement.value = SiteKeys.Google;
-      siteDuckDuckGoElement.value = SiteKeys.DuckDuckGo;
       siteHatenaElement.value = SiteKeys.Hatena;
       
       settings = await getStorageItem(StorageKeys.Settings);
@@ -34,7 +32,6 @@
       loadConfigValue(siteGoogleElement);
 
       siteGoogleElement.addEventListener("input", onUpdatedElementValueForInput, false);
-      siteDuckDuckGoElement.addEventListener("input", onUpdatedElementValueForInput, false);
       siteHatenaElement.addEventListener("input", onUpdatedElementValueForInput, false);
       
       document.getElementById("main-form").style.removeProperty("visibility");
