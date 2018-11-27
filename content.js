@@ -58,13 +58,7 @@ const scanTargetLinks = (records, observer) => {
   }
   window.requestIdleCallback(async () => {
     try {
-      let iconSite = SiteKeys.Google;
-      if (settings == null) {
-        settings = await getStorageItem(StorageKeys.Settings);
-      }
-      if (settings != null) {
-        iconSite = settings.iconSite;
-      }
+      let iconSite = settings.iconSite;
 
       let citeElms = document.querySelectorAll("#ires a cite:not([data-ext-favicon])");
       for (let citeElm of citeElms) {
