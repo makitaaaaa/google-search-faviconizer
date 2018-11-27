@@ -60,10 +60,10 @@ const scanTargetLinks = (records, observer) => {
     try {
       let iconSite = settings.iconSite;
 
-      let citeElms = document.querySelectorAll("#ires a cite:not([data-ext-favicon])");
-      for (let citeElm of citeElms) {
+      let anchorElms = document.querySelectorAll("#ires a cite:not([data-ext-favicon])");
+      for (let anchorElm of anchorElms) {
         let linkElm = null;
-        let parentElm = citeElm;
+        let parentElm = anchorElm;
         while ((parentElm = parentElm.parentElement) != null) {
           if (parentElm.tagName === "A") {
             linkElm = parentElm;
@@ -74,7 +74,7 @@ const scanTargetLinks = (records, observer) => {
           continue;
         }
 
-        citeElm.setAttribute("data-ext-favicon", "true");
+        anchorElm.setAttribute("data-ext-favicon", "true");
 
         let url = new URL(linkElm.href)
         let faviconUrl = null;
@@ -98,7 +98,7 @@ const scanTargetLinks = (records, observer) => {
         containerElm.classList.add("ext-favicon-container");
         containerElm.appendChild(imgElm);
 
-        citeElm.insertBefore(containerElm, citeElm.firstChild);
+        anchorElm.insertBefore(containerElm, anchorElm.firstChild);
 
         imageIntersectObserver.observe(imgElm);
       }
