@@ -14,7 +14,7 @@ let pageObserver = null;
 let imageIntersectObserver = null;
 
 /** @type {string} */
-const NULL_IMAGE_DATA = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+const NULL_IMAGE_DATA = browser.runtime.getURL("empty.gif");
 
 const initialize = async () => {
   try {
