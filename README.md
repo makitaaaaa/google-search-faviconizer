@@ -1,6 +1,6 @@
-# Google search faviconizer
+# Search results faviconizer
 
-Add site icon(favicon) in Google search results.
+Add site icon(favicon) in search results.
 
 ---
 
