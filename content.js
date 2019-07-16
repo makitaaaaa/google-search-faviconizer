@@ -59,8 +59,12 @@ const scanTargetLinks = (records, observer) => {
   window.requestIdleCallback(async () => {
     try {
       let iconSite = settings.iconSite;
-
-      let anchorElms = document.querySelectorAll("#ires a cite:not([data-ext-favicon])");
+      
+      let resultRootElm = getResultRootElement();
+      if (resultRootElm == null) {
+        return;
+      }
+      let anchorElms = resultRootElm.querySelectorAll("a cite:not([data-ext-favicon])");
       for (let anchorElm of anchorElms) {
         let linkElm = null;
         let parentElm = anchorElm;
@@ -106,6 +110,19 @@ const scanTargetLinks = (records, observer) => {
       logging(e);
     }
   });
+}
+
+const getResultRootElement= () => {
+  let elm = null;
+  elm = document.querySelector("#rcnt");
+  if (elm != null) {
+    return elm;
+  }
+  elm = document.querySelector("#ires");
+  if (elm != null) {
+    return elm;
+  }
+  return null;
 }
 
 
